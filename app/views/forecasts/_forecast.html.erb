@@ -1,0 +1,14 @@
+<div class="col" id="forecast_<%= forecast.id %>">
+  <div class="card h-100">
+    <div class="card-body">
+      <h5 class="card-title"><%= forecast.zip_code %></h5>
+      <p class="card-text">Temperature: <%= forecast.temperature %>°F</p>
+      <p class="card-text">Description: <%= forecast.description %></p>
+      <% if forecast.cached? %>
+        <span class="badge bg-warning text-dark">From Cache</span>
+      <% else %>
+        <span class="badge bg-success">Fresh Data</span>
+      <% end %>
+    </div>
+  </div>
+</div>
