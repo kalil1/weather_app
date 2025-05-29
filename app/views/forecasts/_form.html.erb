@@ -1,0 +1,20 @@
+<%= form_with(model: forecast, local: true, class: "mt-4") do |form| %>
+    <% if forecast.errors.any? %>
+      <div class="alert alert-danger">
+        <h4><%= pluralize(forecast.errors.count, "error") %> prohibited this forecast from being saved:</h4>
+        <ul>
+          <% forecast.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <div class="mb-3">
+      <%= form.label :zip_code %>
+      <%= form.text_field :zip_code, class: "form-control" %>
+    </div>
+  
+    <%= form.submit "Get Forecast", class: "btn btn-primary" %>
+  <% end %>
+  

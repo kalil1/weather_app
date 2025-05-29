@@ -1,0 +1,14 @@
+<h1 class="mb-4">Weather Forecasts</h1>
+
+<%= form_with url: forecasts_path, method: :post, data: { turbo: true }, class: "row g-3 mb-4" do |form| %>
+  <div class="col-auto">
+    <%= form.text_field :zip_code, placeholder: "Enter ZIP...", name: "forecast[zip_code]", class: "form-control" %>
+  </div>
+  <div class="col-auto">
+    <%= form.submit "Get Forecast", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<div id="forecasts" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+  <%= render partial: "forecast", collection: @forecasts, as: :forecast %>
+</div>
