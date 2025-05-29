@@ -26,7 +26,7 @@ class WeatherFetcher
             low: response['main']['temp_min'].to_s,
             description: response['weather'][0]['description'],
             raw_data: response.to_json,
-            fetched_at: Time.now,
+            fetched_at: Time.current,
             cached: false
           }
         end

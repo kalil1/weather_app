@@ -16,30 +16,27 @@ class ForecastsController < ApplicationController
   end
 
   def create
-    result = WeatherFetcher.new(params[:forecast][:zip_code]).fetch
+    zip = params[:forecast][:zip_code]
+    existing_forecast = Forecast.where(zip_code: zip).order(created_at: :desc).first
   
-    if result
-      @forecast = Forecast.new(
-        zip_code: result[:zip_code],
-        temperature: result[:temperature],
-        description: result[:description],
-        created_at: result[:fetched_at],
-        cached: result[:cached]
-      )
-  
-      if @forecast.save
-        respond_to do |format|
-          format.turbo_stream
-          format.html { redirect_to forecasts_path, notice: "Forecast successfully fetched#{result[:cached] ? ' (from cache)' : ''}." }
-        end
-      else
-        flash.now[:alert] = 'Error saving forecast.'
-        render :new
-      end
+    if existing_forecast && existing_forecast.created_at > 30.minutes.ago
+      @forecast = existing_forecast
+      @forecast.update(cached: true) unless @forecast.cached?
     else
-      flash.now[:alert] = 'Could not fetch weather data.'
-      @forecast = Forecast.new(zip_code: params[:forecast][:zip_code])
-      render :new
+      result = WeatherFetcher.new(zip).fetch
+  
+      if result
+        @forecast = Forecast.new(result)
+        @forecast.save
+      else
+        flash.now[:alert] = 'Could not fetch weather data.'
+        return render :index, status: :unprocessable_entity
+      end
+    end
+  
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to forecasts_path, notice: "Forecast loaded#{@forecast.cached? ? ' (from cache)' : ''}." }
     end
   end
   
