@@ -26,12 +26,14 @@ class ForecastsController < ApplicationController
       result = WeatherFetcher.new(zip).fetch
   
       if result
-        @forecast = Forecast.new(result)
+        @forecast = Forecast.find_or_initialize_by(zip_code: result[:zip_code])
+        @forecast.assign_attributes(result)
         @forecast.save
       else
         flash.now[:alert] = 'Could not fetch weather data.'
         return render :index, status: :unprocessable_entity
       end
+      
     end
   
     respond_to do |format|
