@@ -11,7 +11,7 @@ gem 'dotenv-rails' # For API keys and config
 gem 'redis' # For caching
 gem 'bootsnap', require: false
 gem 'rspec-rails', group: [:development, :test]
-
+gem 'logger', '1.4.2'
 
 gem "sprockets-rails"
 gem "importmap-rails"
