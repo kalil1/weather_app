@@ -79,6 +79,8 @@ test:
 #
 production:
   <<: *default
-  database: weather_app_production
-  username: weather_app
-  password: <%= ENV["WEATHER_APP_DATABASE_PASSWORD"] %>
+  database: <%= ENV['WEATHER_APP_NAME'] %>
+  username: <%= ENV['WEATHER_APP_USER'] %>
+  password: <%= ENV['WEATHER_APP_PASSWORD'] %>
+  host: <%= ENV['WEATHER_APP_HOST'] %>
+  port: <%= ENV['WEATHER_APP_PORT'] %>

@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby '2.7.6' # Rails 6 compatible
+ruby '2.7.8' # Rails 6 compatible
 
 gem 'rails', '~> 6.1.7'
 gem 'pg'
@@ -11,7 +11,7 @@ gem 'dotenv-rails' # For API keys and config
 gem 'redis' # For caching
 gem 'bootsnap', require: false
 gem 'rspec-rails', group: [:development, :test]
-
+gem 'logger', '1.4.2'
 
 gem "sprockets-rails"
 gem "importmap-rails"
@@ -38,3 +38,5 @@ group :test do
   gem 'rails-controller-testing'
   gem "selenium-webdriver"
 end
+
+gem "dockerfile-rails", ">= 1.7", :group => :development
