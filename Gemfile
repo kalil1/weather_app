@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby '2.7.6' # Rails 6 compatible
+ruby '2.7.8' # Rails 6 compatible
 
 gem 'rails', '~> 6.1.7'
 gem 'pg'
@@ -38,3 +38,5 @@ group :test do
   gem 'rails-controller-testing'
   gem "selenium-webdriver"
 end
+
+gem "dockerfile-rails", ">= 1.7", :group => :development
